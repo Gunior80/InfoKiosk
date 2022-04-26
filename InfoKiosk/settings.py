@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from filebrowser import settings
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,12 +27,15 @@ SECRET_KEY = 'django-insecure-@s!w#a(s&a_dv4g=@&aomtlq5(#yx8)tq#-*o^s9a5auj#$8=7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'CMS',
+    'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
+
 ]
 
 MIDDLEWARE = [
@@ -117,22 +123,45 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-TINYMCE_DEFAULT_CONFIG = {
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-    "menubar": "file edit view insert format tools table help",
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
+
+EXTENSIONS = getattr(settings, "FILEBROWSER_EXTENSIONS",
+                     {
+                        'Image': ['.jpg','.jpeg','.gif','.png','.tif','.tiff'],
+                        #'Document': ['.pdf','.doc','.rtf','.txt','.xls','.csv'],
+                        'Video': ['.mov','.wmv','.mpeg','.mpg','.avi','.rm'],
+                        'Audio': ['.mp3','.mp4','.wav','.aiff','.midi','.m4p']
+                     })
+
+TINYMCE_DEFAULT_CONFIG = {
+    "height": "350",
+    "menubar": "edit view insert format tools table help",
     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
     "fullscreen insertdatetime media table paste code help wordcount spellchecker",
     "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
-    "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
+    "aligncenter alignright alignjustify | numlist bullist checklist | forecolor "
     "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
-    "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
+    "fullscreen  preview save | insertfile image media pageembed template link codesample | "
     "a11ycheck ltr rtl | showcomments addcomment code",
+    "relative_urls": True,
+    "remove_script_host": False,
+    "convert_urls": True,
     "custom_undo_redo_levels": 10,
-    "language": "ru_RU",  # To force a specific language instead of the Django current language.
+    "language": LANGUAGE_CODE,  # To force a specific language instead of the Django current language.
 }
+
+GRAPPELLI_ADMIN_TITLE = "ИнфоТерм"
+
+TEMPLATE = 'CMS/templates/default/'
