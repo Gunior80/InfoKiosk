@@ -1,29 +1,42 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils.translation import gettext as _
 from positions import PositionField
 from tinymce.models import HTMLField
 from mptt.models import MPTTModel, TreeForeignKey
 
 # Create your models here.
 
+class Content(models.Model):
+    name = models.CharField(verbose_name=_("Name"), max_length=64)
+    content = HTMLField(verbose_name=_("Content"))
+
+    class Meta:
+        verbose_name = _("Content")
+        verbose_name_plural = _("Contents")
+
+    def __str__(self):
+        return self.name
+
 
 class Index(MPTTModel):
-    name = models.CharField(verbose_name="Название", max_length=64)
-    parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Родительский элемент")
+    name = models.CharField(verbose_name=_("Name"), max_length=64)
+    parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.SET_NULL, verbose_name=_("Parent index"))
     pos = PositionField(collection='parent')
+    content = models.ForeignKey(Content, blank=True, null=True, on_delete=models.SET_NULL, related_name="index", verbose_name=_("Content"))
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, blank=True, null=True)
-    object_id = models.PositiveIntegerField(blank=True, null=True)
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    def __str__(self):
-        return self.name
-
-
-class SimpleMaterial(models.Model):
-    name = models.CharField(verbose_name="Название", max_length=64)
-    content = HTMLField(verbose_name="Материал")
+    class Meta:
+        verbose_name = _("Index")
+        verbose_name_plural = _("Indexes")
 
     def __str__(self):
         return self.name
+
+
+# 1) Cначала, реализовать то, что выше. в двух типах шаблонов (с общим меню и с переходом на подстраницы)
+# 2) Разобраться с кроссязыками.
+# 3) Добавить функционал опроса.
+# 4) Добавить функционал календаря с событиями.
+# 5) Добавить генерацию ссылок на материалы.
+
+
+

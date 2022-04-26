@@ -164,4 +164,4 @@ TINYMCE_DEFAULT_CONFIG = {
 
 GRAPPELLI_ADMIN_TITLE = "ИнфоТерм"
 
-TEMPLATE = 'CMS/templates/default/'
+TEMPLATE = 'CMS/templates/v1/'
