@@ -1,0 +1,32 @@
+{% extends 'CMS/base.html' %}
+{% load static %}
+{% load mptt_tags %}
+
+
+{% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/theme.css' %}" />
+{% endblock %}
+
+{% block body %}
+<div class="body">
+    <div class="header">Блок 1</div>
+    <div class="content">
+        <div class="nav">
+            <div><a href="{% url 'indexes' %}">В начало</a></div>
+            <div>
+                {% for index in indexes %}
+                <a href="{% url 'index' index=index.id %}">{{ index.name }}</a>
+                <div>
+                    {% for subindex in index.get_childrens %}
+                    <a href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="material">{{ content.content }}</div>
+    </div>
+</div>
+
+{% endblock %}

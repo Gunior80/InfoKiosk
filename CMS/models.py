@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from positions import PositionField
 from tinymce.models import HTMLField
@@ -20,9 +21,14 @@ class Content(models.Model):
 
 class Index(MPTTModel):
     name = models.CharField(verbose_name=_("Name"), max_length=64)
-    parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.SET_NULL, verbose_name=_("Parent index"))
+    parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.SET_NULL,
+                            related_name='children', verbose_name=_("Parent index"))
     pos = PositionField(collection='parent')
-    content = models.ForeignKey(Content, blank=True, null=True, on_delete=models.SET_NULL, related_name="index", verbose_name=_("Content"))
+    content = models.ForeignKey(Content, blank=True, null=True, on_delete=models.SET_NULL,
+                                related_name="index", verbose_name=_("Content"))
+
+    class MPTTMeta:
+        order_insertion_by = ['pos']
 
     class Meta:
         verbose_name = _("Index")
@@ -30,6 +36,14 @@ class Index(MPTTModel):
 
     def __str__(self):
         return self.name
+
+    def get_first(self):
+        return Index.objects.get
+
+    def get_childrens(self):
+        print(self.children.filter(content__isnull=False).order_by('pos'))
+        return self.children.filter(content__isnull=False).order_by('pos')
+
 
 
 # 1) Cначала, реализовать то, что выше. в двух типах шаблонов (с общим меню и с переходом на подстраницы)
