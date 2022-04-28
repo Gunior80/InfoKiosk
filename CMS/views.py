@@ -16,6 +16,8 @@ class Index(TemplateView):
         if 'index' in context:
             context['content'] = models.Index.objects.get(pk=context['index']).content
         else:
-            context['content'] = context['indexes'].first().content
-        print(context)
+            try:
+                context['content'] = context['indexes'].first().content
+            except:
+                context['content'] = ""
         return context

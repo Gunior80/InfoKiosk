@@ -5,28 +5,32 @@
 
 {% block head %}
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/theme.css' %}" />
+    <script src="{% static 'CMS/templates/v1/css/bootstrap.min.js' %}"></script>
 {% endblock %}
 
 {% block body %}
-<div class="body">
-    <div class="header">Блок 1</div>
-    <div class="content">
-        <div class="nav">
-            <div><a href="{% url 'indexes' %}">В начало</a></div>
-            <div>
-                {% for index in indexes %}
-                <a href="{% url 'index' index=index.id %}">{{ index.name }}</a>
-                <div>
-                    {% for subindex in index.get_childrens %}
-                    <a href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a>
-                    {% endfor %}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="material">{{ content.content }}</div>
-    </div>
+<div class="nav">
+    Блок 1
 </div>
+
+<div class="row">
+    <div class="col-3 menu">
+        <div><a href="{% url 'indexes' %}">В начало</a></div>
+        <div class="button">
+            {% for index in indexes %}
+            <a href="{% url 'index' index=index.id %}">{{ index.name }}</a>
+            <div>
+                {% for subindex in index.get_childrens %}
+                <a href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a>
+                {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-9 content">{{ content.content }}</div>
+</div>
+
 
 {% endblock %}
