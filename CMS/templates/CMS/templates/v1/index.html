@@ -17,17 +17,12 @@
 
 <div class="row">
     <div class="col-3 menu">
-        <div><a href="{% url 'indexes' %}">В начало</a></div>
-        <div class="button">
-            {% for index in indexes %}
-            <a href="{% url 'index' index=index.id %}">{{ index.name }}</a>
-            <div>
-                {% for subindex in index.get_childrens %}
-                <a href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a>
-                {% endfor %}
-                </div>
+        {% for index in indexes %}
+            <div><a class="link" href="{% url 'index' index=index.id %}">{{ index.name }}</a></div>
+            {% for subindex in index.get_childrens %}
+                <a class="link align-middle" href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a>
             {% endfor %}
-        </div>
+        {% endfor %}
     </div>
     <div class="col-9 content">{{ content.content }}</div>
 </div>
