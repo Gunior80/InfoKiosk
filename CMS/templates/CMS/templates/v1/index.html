@@ -5,27 +5,40 @@
 
 {% block head %}
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/theme.css' %}" />
-    <script src="{% static 'CMS/templates/v1/css/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/Navbar-Centered-Brand.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'CMS/templates/v1/css/styles.css' %}" />
+    <script defer src="{% static 'CMS/templates/v1/js/time.js' %}"></script>
 {% endblock %}
 
 {% block body %}
-<div class="nav">
-    Блок 1
-</div>
-
-<div class="row">
-    <div class="col-3 menu">
-        {% for index in indexes %}
-            <div><a class="link" href="{% url 'index' index=index.id %}">{{ index.name }}</a></div>
-            {% for subindex in index.get_childrens %}
-                <a class="link align-middle" href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a>
-            {% endfor %}
-        {% endfor %}
+    <nav class="navbar navbar-light navbar-expand-md py-3" style="height: 10vh;background: #1d9300;">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><img src="{% static 'CMS/templates/v1/img/logo.png' %}" style="width: 50px;"><span>&nbsp; &nbsp;ИнфоТерм</span></a>
+            <div class="d-none d-md-block"><span class="fs-2 fw-normal text-warning">Библиотека поселка Красное</span></div>
+            <span class="fs-2 fw-normal text-warning" id="time"></span>
+        </div>
+    </nav>
+    <div class="row" style="margin-top: 0;height: 90vh;margin-left: 5px;margin-right: 5px;">
+        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="height: 90vh;">
+            <div class="container d-flex flex-column align-items-start" style="height: 100%;">
+                {% for index in indexes %}
+                <div class="row" style="width: 100%;margin-top: auto;margin-bottom: auto;">
+                    <div class="col" style="width: 100%; background: var(--bs-yellow);">
+                        <h1><a class="link" style="width: 100%;" href="{% url 'index' index=index.id %}">{{ index.name }}</a></h1>
+                    </div>
+                </div>
+                    {% for subindex in index.get_childrens %}
+                        <div class="row" style="width: 100%;margin-top: auto;margin-bottom: auto;">
+                            <div class="col" style="width: 100%; background: var(--bs-yellow);">
+                                <h1><a class="link" style="width: 100%;" href="{% url 'index' index=subindex.id %}">{{ subindex.name }}</a></h1>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col content">
+            {{ content.content | safe }}
+        </div>
     </div>
-    <div class="col-9 content">{{ content.content }}</div>
-</div>
-
 
 {% endblock %}
