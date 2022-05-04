@@ -27,14 +27,13 @@ SECRET_KEY = 'django-insecure-@s!w#a(s&a_dv4g=@&aomtlq5(#yx8)tq#-*o^s9a5auj#$8=7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'mptt',
-    'CMS',
     'grappelli',
     'filebrowser',
     'django.contrib.admin',
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
+    'CMS',
 
 ]
 
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'InfoKiosk.urls'
@@ -118,7 +119,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

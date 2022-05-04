@@ -23,7 +23,7 @@ class Index(MPTTModel):
     name = models.CharField(verbose_name=_("Name"), max_length=64)
     parent = TreeForeignKey("self", blank=True, null=True, on_delete=models.SET_NULL,
                             related_name='children', verbose_name=_("Parent index"))
-    pos = PositionField(collection='parent')
+    pos = PositionField(collection='parent', verbose_name=_("Position"))
     content = models.ForeignKey(Content, blank=True, null=True, on_delete=models.SET_NULL,
                                 related_name="index", verbose_name=_("Content"))
 
@@ -41,7 +41,6 @@ class Index(MPTTModel):
         return Index.objects.get
 
     def get_childrens(self):
-        print(self.children.filter(content__isnull=False).order_by('pos'))
         return self.children.filter(content__isnull=False).order_by('pos')
 
 

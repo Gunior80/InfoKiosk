@@ -1,4 +1,47 @@
-.content {
-  overflow-y: auto;
+
+body {
+    background: #edf1ec;
+
 }
+
+.navbar {
+    background: linear-gradient(180deg, rgba(65,187,8,1) 0%, rgba(65,187,8,1) 90%, rgba(255,255,255,0) 100%);
+    height: 10vh;
+}
+
+.container-top {
+    width: 95%;
+    height: 90%
+    max-width: None;
+}
+
+.row-main {
+
+}
+
+a {
+    color: black;
+    text-shadow: grey 1px 0 10px;
+    text-decoration: none !important;
+    border: none !important;
+}
+
+.row-el, .col-el {
+    width: 100%;
+}
+
+.row-el {
+    background: linear-gradient(90deg, rgba(255,193,7,1) 0%, rgba(255,193,7,1) 81%, rgba(255,255,255,0) 100%);
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.content {
+
+    height: 90vh;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    overflow-y: auto;
+}
+
 
