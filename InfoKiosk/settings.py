@@ -147,7 +147,7 @@ EXTENSIONS = getattr(settings, "FILEBROWSER_EXTENSIONS",
                      })
 
 TINYMCE_DEFAULT_CONFIG = {
-    "height": "350",
+    "height": "65vh",
     "menubar": "edit view insert format tools table help",
     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
     "fullscreen insertdatetime media table paste code help wordcount spellchecker",

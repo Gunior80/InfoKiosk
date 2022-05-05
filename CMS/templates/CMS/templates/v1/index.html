@@ -25,14 +25,9 @@
         <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="height: 90vh; padding-right: 0px;">
             <div class="container d-flex flex-column align-items-start" style="height: 100%; padding-right: 0px;">
                 {% for index in indexes %}
-                <div class="row row-el align-items-center">
-                    <a class="col col-el align-items-center" href="{% url 'index' index=index.id %}"><h3>{{ index.name }}</h3></a>
-                </div>
-                    {% for subindex in index.get_childrens %}
-                        <div class="row row-el align-items-center">
-                            <a class="col col-el align-items-center" href="{% url 'index' index=subindex.id %}"><h3>{{ subindex.name }}</h3></a>
-                        </div>
-                    {% endfor %}
+                    <div class="row row-el align-items-center" style="min-height: 12vh;">
+                        <a class="col col-el align-items-center" href="{% url 'index' index=index.id %}"><h3>{{ index.name }}</h3></a>
+                    </div>
                 {% endfor %}
             </div>
         </div>
