@@ -20,4 +20,8 @@ from . import views
 urlpatterns = [
     path('', views.Index.as_view(), name='indexes'),
     path('<int:index>', views.Index.as_view(), name='index'),
+
+    path('api/indexes', views.getIndexes, name='get-indexes'),
+    path('api/subindexes', views.getSubIndexes, name='get-subindexes'),
+
 ]
